@@ -30,17 +30,31 @@ def index(request):
         form = BookSearchForm()
     return render(request, 'books/index.html', locals())
 
-def book_detail(request, book_id, mode='edit'):
-    book = BookData.objects.get(id=book_id)
-    form = BookDataForm(instance=book)
-    if mode == 'edit':
+def book_detail(request, mode, book_id=0):
+    if mode == 'create':
         if request.method == 'POST':
-            form = BookDataForm(request.POST, instance=book)
+            form = BookDataForm(request.POST)
             if form.is_valid():
                 form.save()
-                return redirect(reverse('BookDetail', args=[book_id, 'view']))
+                return redirect('Book')
+        else:
+            form = BookDataForm()
+    elif mode == 'view' or mode == 'edit':
+        book = BookData.objects.get(id=book_id)
+        form = BookDataForm(instance=book)
+        if mode == 'edit':
+            if request.method == 'POST':
+                form = BookDataForm(request.POST, instance=book)
+                if form.is_valid():
+                    form.save()
+                    return redirect(reverse('BookDetail', args=['view', book_id]))
     return render(request, 'books/book_detail.html', locals())
 
 def book_lend_record(request, book_id):
     records = BookLendRecord.objects.filter(book_id=book_id).order_by('-borrow_date')
     return render(request, 'books/book_lend_record.html', locals())
+
+def delete_book(request, book_id):
+    book = BookData.objects.get(id=book_id)
+    book.delete()
+    return redirect('Book')

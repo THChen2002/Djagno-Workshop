@@ -31,7 +31,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;
             <input type="button" value="清除" class="btn btn-danger" id="ClearBtn">
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="button" value="新增" class="btn btn-success" id="InsertWindowBtn" />
+            <a href="{% url 'BookDetail' 'create' %}" class="btn btn-success">新增</a>
         </div>
     </div>
 </form>
@@ -51,14 +51,14 @@
         {% for book in books %}
         <tr>
             <td>{{ book.category }}</td>
-            <td><a href="{% url 'BookDetail' book.id 'view' %}" style="text-decoration: none;">{{ book.name }}</a></td>
+            <td class="book_name"><a href="{% url 'BookDetail' 'view' book.id %}" style="text-decoration: none;">{{ book.name }}</a></td>
             <td>{{ book.publish_date | format_time }}</td>
             <td>{{ book.status }}</td>
             <td>{{ book.keeper_id | display_borrower }}</td>
             <td>
                 <a href="{% url 'BookLendRecord' book.id %}" class="btn btn-primary">借閱紀錄</a>
-                <a href="{% url 'BookDetail' book.id 'edit' %}" class="btn btn-success">編輯</a>
-                <a href="" class="btn btn-danger">刪除</a>
+                <a href="{% url 'BookDetail' 'edit' book.id %}" class="btn btn-success">編輯</a>
+                <a href="{% url 'DeleteBook' book.id %}" class="btn btn-danger delete_btn">刪除</a>
             </td>
         </tr>
         {% endfor %}
@@ -73,6 +73,12 @@
             $('#Category').val('');
             $('#Borrower').val('');
             $('#BookStatus').val('');
+        });
+
+        //刪除按鈕確認視窗
+        $('.delete_btn').click(function () {
+            book_name = $(this).parent().parent().find('.book_name').text();
+            return confirm('確定要刪除書籍：【' + book_name + '】？');
         });
     });
 </script>

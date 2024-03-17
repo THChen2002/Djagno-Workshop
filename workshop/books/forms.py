@@ -40,6 +40,7 @@ class BookDataForm(forms.ModelForm):
         self.fields['publish_date'].required = False
         self.fields['summary'].required = False
         self.fields['price'].required = False
+        self.fields['keeper_id'].required = False
 
     keeper = forms.ChoiceField(
         label='借閱人',
