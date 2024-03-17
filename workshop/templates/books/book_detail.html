@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}書籍查詢{% endblock %}
+{% block title %}書籍{% endblock %}
 {% block content %}
 {% load filter %}
 {% load static %}
@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{% static 'css/books.css' %}" type="text/css">
 
 <h1>書籍維護</h1>
-<a href="{% url 'Book' %}">回上一頁</a>
+<a href="{% url 'Book' %}" class="btn btn-outline-primary" style="position: absolute;right: 210px;top: 80px;">回書籍查詢</a>
 <form action="{% url 'BookDetail' book.id %}" method="post">
     {% csrf_token %}
     <div class="form">
@@ -49,6 +49,7 @@
             {{ form.status }}
         </div>
         <div class="button">
+            <input type="hidden" value="{{ mode }}" id="mode">
             <input type="submit" value="存檔" class="btn btn-primary" id="SaveBtn" />
             &nbsp;&nbsp;&nbsp;&nbsp;
             <input type="button" value="刪除" class="btn btn-danger" id="ClearBtn" />
@@ -60,11 +61,53 @@
 <script>
     $(document).ready(function() {
         keeper_id = $('input[name="keeper_id"]').val();
+        mode = $('#mode').val();
         $('select[name="keeper"]').val(keeper_id);
 
         $('select[name="keeper"]').change(function() {
             $('input[name="keeper_id"]').val($(this).val());
         });
+
+        if (mode == 'view') {
+            readonlyMode();
+        } else {
+            editMode();
+        }
+
+        $('#EditBtn').click(function() {
+            window.location.href = "{% url 'BookDetail' book.id 'edit' %}";
+        });
+
+        function readonlyMode() {
+            $('input[name="name"]').prop('readonly', true);
+            $('select[name="category"]').prop('disabled', true);
+            $('input[name="author"]').prop('readonly', true);
+            $('input[name="publisher"]').prop('readonly', true);
+            $('input[name="publish_date"]').prop('readonly', true);
+            $('textarea[name="summary"]').prop('readonly', true);
+            $('input[name="price"]').prop('readonly', true);
+            $('select[name="keeper"]').prop('disabled', true);
+            $('select[name="status"]').prop('disabled', true);
+            $('#SaveBtn').hide();
+            $('#ClearBtn').hide();
+            $('#EditBtn').show();
+        }
+
+        function editMode() {
+            $('input[name="name"]').prop('readonly', false);
+            $('select[name="category"]').prop('disabled', false);
+            $('input[name="author"]').prop('readonly', false);
+            $('input[name="publisher"]').prop('readonly', false);
+            $('input[name="publish_date"]').prop('readonly', false);
+            $('textarea[name="summary"]').prop('readonly', false);
+            $('input[name="price"]').prop('readonly', false);
+            $('select[name="keeper"]').prop('disabled', false);
+            $('select[name="status"]').prop('disabled', false);
+            $('#SaveBtn').show();
+            $('#ClearBtn').show();
+            $('#EditBtn').hide();
+        }
+
     });
 </script>
 {% endblock %}

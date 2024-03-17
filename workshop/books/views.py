@@ -3,7 +3,6 @@ from django.urls import reverse
 from django.db.models import Q
 from .forms import BookSearchForm, BookDataForm
 from .models import BookData, BookLendRecord
-from accounts.models import Student
 
 def index(request):
     books = BookData.objects.all()
@@ -31,15 +30,15 @@ def index(request):
         form = BookSearchForm()
     return render(request, 'books/index.html', locals())
 
-def book_detail(request, book_id):
+def book_detail(request, book_id, mode='edit'):
     book = BookData.objects.get(id=book_id)
-    if request.method == 'POST':
-        form = BookDataForm(request.POST, instance=book)
-        if form.is_valid():
-            form.save()
-            return redirect(reverse('BookDetail', args=[book_id]))
-    else:
-        form = BookDataForm(instance=book)
+    form = BookDataForm(instance=book)
+    if mode == 'edit':
+        if request.method == 'POST':
+            form = BookDataForm(request.POST, instance=book)
+            if form.is_valid():
+                form.save()
+                return redirect(reverse('BookDetail', args=[book_id, 'view']))
     return render(request, 'books/book_detail.html', locals())
 
 def book_lend_record(request, book_id):

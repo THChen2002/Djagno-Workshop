@@ -34,5 +34,6 @@ urlpatterns = [
     # 書籍借閱記錄
     path('book_lend_records/<int:book_id>/', books.book_lend_record, name='BookLendRecord'),
     # 書籍詳細資訊
+    path('book/<int:book_id>/<str:mode>', books.book_detail, name='BookDetail'),
     path('book/<int:book_id>/', books.book_detail, name='BookDetail'),
 ]
