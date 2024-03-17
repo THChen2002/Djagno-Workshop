@@ -2,48 +2,48 @@
 {% block title %}書籍查詢{% endblock %}
 {% block content %}
 {% load filter %}
-{% load static %}
-
-<link rel="stylesheet" href="{% static 'css/books.css' %}" type="text/css">
-
 <h1>書籍查詢</h1>
 <form action="{% url 'Book' %}" method="post">
     {% csrf_token %}
-    <div class="form">
-        <div class="text col-3">
-            <label for="name">{{ form.book_name.label }}</label>
-            {{ form.book_name }}
-        </div>
-        <div class="text col-3">
-            <label for="category">{{ form.category.label }}</label>
-            {{ form.category }}
-        </div>
-        <div class="text col-3">
-            <label for="register_year">{{ form.borrower.label }}</label>
-            {{ form.borrower }}
-        </div>
-        <div class="text col-3">
-            <label for="subject">{{ form.book_status.label }}</label>
-            {{ form.book_status }}
-        </div>
-        <div class="button col-3">
-            <input type="submit" value="查詢" class="btn btn-primary" id="SearchBtn" />
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="button" value="清除" class="btn btn-danger" id="ClearBtn" />
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="button" value="新增" class="btn btn-success" id="InsertWindowBtn" />
+    <div class="form" >
+        <div style="background-color: #efefef;border-radius: 20px;">
+            <div style="margin: 25px 10px;">
+                <div class="text col-3">
+                    <label for="name">{{ form.book_name.label }}</label>
+                    {{ form.book_name }}
+                </div>
+                <div class="text col-3">
+                    <label for="category">{{ form.category.label }}</label>
+                    {{ form.category }}
+                </div>
+                <div class="text col-3">
+                    <label for="register_year">{{ form.borrower.label }}</label>
+                    {{ form.borrower }}
+                </div>
+                <div class="text col-3">
+                    <label for="subject">{{ form.book_status.label }}</label>
+                    {{ form.book_status }}
+                </div>
+            </div>
+            <div class="button col-3" style="margin: 20px 0px;display: flex;justify-content: space-evenly;">
+                <input type="button" value="查詢" class="btn btn-primary" id="SearchBtn" style="width: 30%;">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="button" value="清除" class="btn btn-danger" id="ClearBtn" style="width: 30%;">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="button" value="新增" class="btn btn-success" id="InsertWindowBtn" style="width: 30%;"/>
+            </div>
         </div>
     </div>
 </form>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th style="width: 15%;">書籍類別</th>
-            <th style="width: 30%;">書名</th>
-            <th style="width: 15%;">出版日期</th>
-            <th style="width: 10%;">借閱狀態</th>
-            <th style="width: 10%;">借閱人</th>
-            <th style="width: 20%;">操作</th>
+            <th style="width: 15%">書籍類別</th>
+            <th style="width: 30%">書名</th>
+            <th style="width: 15%">出版日期</th>
+            <th style="width: 10%">借閱狀態</th>
+            <th style="width: 10%">借閱人</th>
+            <th style="width: 20%">操作</th>
         </tr>
     </thead>
     <tbody>

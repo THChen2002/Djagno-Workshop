@@ -13,6 +13,7 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous">
         </script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
     <title>{% block title %}{% endblock %}</title>
 </head>
 
@@ -46,31 +47,31 @@
             <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
                 aria-labelledby="offcanvasWithBothOptionsLabel">
                 <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Menu</h5>
+                    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">目錄</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
                     <ul style="list-style-type: none;padding: 0;">
-                        <li>
-                            <a href="{% url 'Book' %}" class="nav-link" style="color: #000000;">圖書維護</a>
+                        <li style="margin:10px 0px ;text-align: center;">
+                            <a href="{% url 'Book' %}" class="btn btn-outline-primary btn-lg meau-item"  role="button">書籍查詢</a>
                         </li>
-                        <li>
-                            <a href="{% url 'Index' %}" class="nav-link" style="color: #000000;">XSS</a>
+                        <li style="margin:10px 0px ;text-align: center;">
+                            <a href="{% url 'Index' %}" class="btn btn-outline-primary btn-lg meau-item"  role="button">XSS</a>
                         </li>
-                        <li>
-                            <a href="#" class="nav-link" style="color: #000000;">CSRF</a>
+                        <li style="margin:10px 0px ;text-align: center;">
+                            <a href="#" class="btn btn-outline-primary meau-item"  role="button">CSRF</a>
                         </li>
-                        <li>
-                            <a href="{% url 'Index' %}" class="nav-link" style="color: #000000;">SQL Injection</a>
+                        <li style="margin:10px 0px ;text-align: center;">
+                            <a href="{% url 'Index' %}" class="btn btn-outline-primary meau-item" role="button">SQL Injection</a>
                         </li>
-                        <li>
-                            <a href="{% url 'Index' %}" class="nav-link" style="color: #000000;">學生資料維護</a>
+                        <li style="margin:10px 0px ;text-align: center;">
+                            <a href="{% url 'Index' %}" class="btn btn-outline-primary meau-item" role="button">學生資料維護</a>
                         </li>
-                        <li>
-                            <a href="{% url 'Index' %}" class="nav-link" style="color: #000000;">學生歷年成績查詢</a>
+                        <li style="margin:10px 0px ;text-align: center;">
+                            <a href="{% url 'Index' %}" class="btn btn-outline-primary meau-item" role="button">學生歷年成績查詢</a>
                         </li>
-                        <li>
-                            <a href="{% url 'Index' %}" class="nav-link" style="color: #000000;">留言板</a>
+                        <li style="margin:10px 0px ;text-align: center;">
+                            <a href="{% url 'Index' %}" class="btn btn-outline-primary meau-item" role="button">留言板</a>
                         </li>
                     </ul>
                 </div>
