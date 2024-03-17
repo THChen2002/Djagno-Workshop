@@ -36,20 +36,12 @@ def book_detail(request, book_id):
     if request.method == 'POST':
         form = BookDataForm(request.POST, instance=book)
         if form.is_valid():
-            # 保存表單數據
-            book = form.save(commit=False)
-            # 從表單中獲取選擇的學生 ID
-            keeper_id = form.cleaned_data['keeper_id']
-            # 使用學生 ID 獲取學生對象
-            if keeper_id:
-                keeper = Student.objects.get(id=keeper_id)
-                # 將學生對象設置為 book 的 keeper
-                book.keeper = keeper
-            book.save()
+            form.save()
             return redirect(reverse('BookDetail', args=[book_id]))
     else:
         form = BookDataForm(instance=book)
     return render(request, 'books/book_detail.html', locals())
+
 def book_lend_record(request, book_id):
     records = BookLendRecord.objects.filter(book_id=book_id).order_by('-borrow_date')
     return render(request, 'books/book_lend_record.html', locals())

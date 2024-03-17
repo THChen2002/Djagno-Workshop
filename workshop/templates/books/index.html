@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% block title %}書籍查詢{% endblock %}
 {% block content %}
+{% load static %}
 {% load filter %}
+
+<link rel="stylesheet" href="{% static 'css/books.css' %}" type="text/css">
+
 <h1>書籍查詢</h1>
 <form action="{% url 'Book' %}" method="post">
     {% csrf_token %}
@@ -26,7 +30,7 @@
                 </div>
             </div>
             <div class="button col-3" style="margin: 20px 0px;display: flex;justify-content: space-evenly;">
-                <input type="button" value="查詢" class="btn btn-primary" id="SearchBtn" style="width: 30%;">
+                <input type="submit" value="查詢" class="btn btn-primary" id="SearchBtn" style="width: 30%;">
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="button" value="清除" class="btn btn-danger" id="ClearBtn" style="width: 30%;">
                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -50,7 +54,7 @@
         {% for book in books %}
         <tr>
             <td>{{ book.category }}</td>
-            <td>{{ book.name }}</td>
+            <td><a href="{% url 'BookDetail' book.id %}" style="text-decoration: none;">{{ book.name }}</a></td>
             <td>{{ book.publish_date | format_time }}</td>
             <td>{{ book.status }}</td>
             <td>{{ book.keeper_id | display_borrower }}</td>

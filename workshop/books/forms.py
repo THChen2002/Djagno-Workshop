@@ -1,6 +1,7 @@
 from django import forms
 from .models import BookCategory, BookCode, BookData
 from accounts.models import Student
+from datetime import datetime
 
 class BookSearchForm(forms.Form):
     book_name = forms.CharField(
@@ -40,8 +41,12 @@ class BookDataForm(forms.ModelForm):
         self.fields['summary'].required = False
         self.fields['price'].required = False
 
-    keeper_id = forms.ModelChoiceField(queryset=Student.objects.all(), empty_label="-", label="借閱人", widget=forms.Select(attrs={'class': 'form-control'}))
-    
+    keeper = forms.ChoiceField(
+        label='借閱人',
+        choices=[('', '------------------ 借閱人 ------------------')] + list(Student.objects.values_list('id', 'username')),
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
     class Meta:
         model = BookData
         fields = '__all__'
@@ -50,9 +55,10 @@ class BookDataForm(forms.ModelForm):
             'category': forms.Select(attrs={'class': 'form-control'}),
             'author': forms.TextInput(attrs={'class': 'form-control'},),
             'publisher': forms.TextInput(attrs={'class': 'form-control'}),
-            'publish_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'publish_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date' ,'max': datetime.now().strftime('%Y-%m-%d')}),
             'summary': forms.Textarea(attrs={'class': 'form-control'}),
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
+            'keeper_id': forms.HiddenInput(),
             'status': forms.Select(attrs={'class': 'form-control'}),
         }
         labels = {

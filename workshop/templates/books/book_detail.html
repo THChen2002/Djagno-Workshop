@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="{% static 'css/books.css' %}" type="text/css">
 
 <h1>書籍維護</h1>
+<a href="{% url 'Book' %}">回上一頁</a>
 <form action="{% url 'BookDetail' book.id %}" method="post">
     {% csrf_token %}
     <div class="form">
@@ -40,6 +41,7 @@
         </div>
         <div class="text">
             <label for="keeper_id">{{ form.keeper_id.label }}</label>
+            {{ form.keeper }}
             {{ form.keeper_id }}
         </div>
         <div class="text">
@@ -54,4 +56,15 @@
         </div>
     </div>
 </form>
+
+<script>
+    $(document).ready(function() {
+        keeper_id = $('input[name="keeper_id"]').val();
+        $('select[name="keeper"]').val(keeper_id);
+
+        $('select[name="keeper"]').change(function() {
+            $('input[name="keeper_id"]').val($(this).val());
+        });
+    });
+</script>
 {% endblock %}
