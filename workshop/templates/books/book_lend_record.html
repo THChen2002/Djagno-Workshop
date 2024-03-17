@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}書籍查詢{% endblock %}
+{% block content %}
+{% load filter %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/books.css' %}" type="text/css">
+
+<h1>借閱紀錄</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 15%;">借閱日期</th>
+            <th style="width: 10%;">借閱人編號</th>
+            <th style="width: 15%;">借閱人姓名</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in records %}
+        <tr>
+            <td>{{ record.borrow_date | format_time }}</td>
+            <td>{{ record.borrower.id }}</td>
+            <td>{{ record.borrower.username }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

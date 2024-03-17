@@ -43,7 +43,7 @@ class BookData(models.Model):
     def __str__(self):
         return self.name
 
-class BookBorrowRecord(models.Model):
+class BookLendRecord(models.Model):
     # 書籍
     book = models.ForeignKey(BookData, on_delete=models.CASCADE)
     # 借閱人

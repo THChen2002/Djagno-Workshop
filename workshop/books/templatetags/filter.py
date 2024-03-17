@@ -1,5 +1,6 @@
 from django import template
 from django.utils import timezone
+from accounts.models import Student
 
 register = template.Library()
 
@@ -19,3 +20,9 @@ def format_time(datetime):
 @register.filter
 def length(list):
     return len(list)
+
+@register.filter
+def display_borrower(keeper_id):
+    if keeper_id == None:
+        return '-'
+    return Student.objects.get(id=keeper_id).username

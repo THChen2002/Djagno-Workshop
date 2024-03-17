@@ -1,5 +1,5 @@
 from django.contrib import admin
-from books.models import BookCategory, BookCode, BookData, BookBorrowRecord
+from books.models import BookCategory, BookCode, BookData, BookLendRecord
 
 class BookCategoryAdmin(admin.ModelAdmin):
     list_display = ("id", "category_id", "category_name")
@@ -15,12 +15,12 @@ class BookDataAdmin(admin.ModelAdmin):
     search_fields=('name',)
     ordering = ("id",)
 
-class BookBorrowRecordAdmin(admin.ModelAdmin):
+class BookLendRecordAdmin(admin.ModelAdmin):
     list_display = ("id", "book", "borrower", "borrow_date")
-    search_fields=('book',)
+    search_fields=('book__name',)
     ordering = ("-borrow_date",)
 
 admin.site.register(BookCategory, BookCategoryAdmin)
 admin.site.register(BookCode, BookCodeAdmin)
 admin.site.register(BookData, BookDataAdmin)
-admin.site.register(BookBorrowRecord, BookBorrowRecordAdmin)
+admin.site.register(BookLendRecord, BookLendRecordAdmin)

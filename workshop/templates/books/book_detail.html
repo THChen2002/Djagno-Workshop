@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}書籍查詢{% endblock %}
+{% block content %}
+{% load filter %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/books.css' %}" type="text/css">
+
+<h1>書籍維護</h1>
+<form action="{% url 'BookDetail' book.id %}" method="post">
+    {% csrf_token %}
+    <div class="form">
+        <div class="text">
+            <label for="name">{{ form.name.label }}</label>
+            {{ form.name }}
+        </div>
+        <div class="text">
+            <label for="category">{{ form.category.label }}</label>
+            {{ form.category }}
+        </div>
+        <div class="text">
+            <label for="author">{{ form.author.label }}</label>
+            {{ form.author }}
+        </div>
+        <div class="text">
+            <label for="publisher">{{ form.publisher.label }}</label>
+            {{ form.publisher }}
+        </div>
+        <div class="text">
+            <label for="publish_date">{{ form.publish_date.label }}</label>
+            {{ form.publish_date }}
+        </div>
+        <div class="text">
+            <label for="summary">{{ form.summary.label }}</label>
+            {{ form.summary }}
+        </div>
+        <div class="text">
+            <label for="price">{{ form.price.label }}</label>
+            {{ form.price }}
+        </div>
+        <div class="text">
+            <label for="keeper_id">{{ form.keeper_id.label }}</label>
+            {{ form.keeper_id }}
+        </div>
+        <div class="text">
+            <label for="status">{{ form.status.label }}</label>
+            {{ form.status }}
+        </div>
+        <div class="button">
+            <input type="submit" value="存檔" class="btn btn-primary" id="SaveBtn" />
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="button" value="刪除" class="btn btn-danger" id="ClearBtn" />
+            <input type="button" value="修改" class="btn btn-success" id="EditBtn" />
+        </div>
+    </div>
+</form>
+{% endblock %}

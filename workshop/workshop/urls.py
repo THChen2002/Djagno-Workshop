@@ -30,5 +30,9 @@ urlpatterns = [
     # 註冊
     path('register/', accounts.register, name='Register'),
     # 書籍管理
-    path('books/', books.index, name='Books'),
+    path('book/', books.index, name='Book'),
+    # 書籍借閱記錄
+    path('book_lend_records/<int:book_id>/', books.book_lend_record, name='BookLendRecord'),
+    # 書籍詳細資訊
+    path('book/<int:book_id>/', books.book_detail, name='BookDetail'),
 ]
