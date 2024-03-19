@@ -25,18 +25,18 @@ class BookData(models.Model):
     # 類別
     category = models.ForeignKey(BookCategory, on_delete=models.CASCADE)
     # 作者
-    author = models.CharField(max_length=100)
+    author = models.CharField(max_length=100, null=True)
     # 出版社
-    publisher = models.CharField(max_length=100)
+    publisher = models.CharField(max_length=100, null=True)
     # 出版日期
-    publish_date = models.DateField()
+    publish_date = models.DateField(null=True)
     # 簡介
-    summary = models.TextField()
+    summary = models.TextField(null=True)
     # 購買價格
-    price = models.IntegerField()
+    price = models.IntegerField(null=True)
     # 書籍保管人
     # keeper = models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
-    keeper_id = models.IntegerField()
+    keeper_id = models.IntegerField(null=True)
     # 書籍狀態
     status = models.ForeignKey(BookCode, on_delete=models.CASCADE)
 

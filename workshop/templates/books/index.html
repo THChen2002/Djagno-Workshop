@@ -67,12 +67,16 @@
 
 <script>
     $(document).ready(function () {
+        //初始化下拉選單狀態
+        changeDropdownStatus();
+
         //清除按鈕清空搜尋欄位
         $('#ClearBtn').click(function () {
             $('#BookName').val('');
             $('#Category').val('');
             $('#Borrower').val('');
             $('#BookStatus').val('');
+            $('#Borrower').prop('disabled', false);
         });
 
         //刪除按鈕確認視窗
@@ -80,6 +84,21 @@
             book_name = $(this).parent().parent().find('.book_name').text();
             return confirm('確定要刪除書籍：【' + book_name + '】？');
         });
+
+        //借閱狀態改變事件
+        $('#BookStatus').change(function () {
+            changeDropdownStatus();
+        });
+
+        function changeDropdownStatus() {
+            book_status = $('#BookStatus').val();
+            if (book_status == '1' || book_status == '2') {
+                $('#Borrower').val('');
+                $('#Borrower').prop('disabled', true);
+            } else {
+                $('#Borrower').prop('disabled', false);
+            }
+        }
     });
 </script>
 {% endblock %}

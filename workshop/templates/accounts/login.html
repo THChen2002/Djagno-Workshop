@@ -3,7 +3,6 @@
 {% block content %}
 {% load static %}
 
-<span id="login-password" style="display: none; color: rgb(255, 255, 255,0);"></span>
 <div class="center">
 	<h1>登入</h1>
 	<form method="post" id="login-form">
@@ -45,39 +44,4 @@
 		</div>
 	</form>
 </div>
-<!-- modal視窗 -->
-<div class="modal fade" id="block-info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-	aria-labelledby="staticBackdropLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h1 class="modal-title fs-5" id="exampleModalLabel">⚠️ 警告</h1>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<p>😈😈 哈哈，不讓你下載！</p>
-				<p>💡💡 hint: 它被別的事件蓋住了！</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-<script>
-	$(document).ready(function () {
-		const blockModal = new bootstrap.Modal($('#block-info'));
-
-		$("#download-btn").mouseover(function () {
-			blockModal.show();
-		});
-
-		$("#download-btn").click(function () {
-			$("#login-password").text("ntuemie1031");
-		});
-	});
-
-
-</script>
 {% endblock %}

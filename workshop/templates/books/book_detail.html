@@ -76,6 +76,10 @@
             editMode();
         }
 
+        $('select[name="status"]').change(function() {
+            changeDropdownStatus();
+        });
+
         $('#EditBtn').click(function() {
             window.location.href = "{% url 'BookDetail' 'edit' book_id %}";
         });
@@ -108,6 +112,17 @@
             $('input[name="price"]').prop('readonly', false);
             $('select[name="keeper"]').prop('disabled', false);
             $('select[name="status"]').prop('disabled', false);
+        }
+
+        function changeDropdownStatus() {
+            book_status = $('select[name="status"]').val();
+            if (book_status == '1' || book_status == '2') {
+                $('select[name="keeper"]').val('');
+                $('select[name="keeper"]').prop('disabled', true);
+                $('input[name="keeper_id"]').val('');
+            } else {
+                $('select[name="keeper"]').prop('disabled', false);
+            }
         }
 
     });

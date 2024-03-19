@@ -10,9 +10,9 @@ class BookSearchForm(forms.Form):
         required=False,
         widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'BookName'})
     )
-    category_choices = [('', '----------------- 圖書類別 -----------------')] + list(BookCategory.objects.values_list('id', 'category_name'))
+    category_choices = [('', '----------------- 書籍類別 -----------------')] + list(BookCategory.objects.values_list('id', 'category_name'))
     category = forms.ChoiceField(
-        label='圖書類別',
+        label='書籍類別',
         choices=category_choices,
         required=False,
         widget=forms.Select(attrs={'class': 'form-control', 'id': 'Category'})
@@ -26,7 +26,7 @@ class BookSearchForm(forms.Form):
     )
     book_status_choices = [('', '----------------- 借閱狀態 -----------------')] + list(BookCode.objects.values_list('id', 'code_name'))
     book_status = forms.ChoiceField(
-        label='狀態',
+        label='借閱狀態',
         choices=book_status_choices,
         required=False,
         widget=forms.Select(attrs={'class': 'form-control', 'id': 'BookStatus'})
