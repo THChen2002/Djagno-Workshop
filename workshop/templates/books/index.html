@@ -109,7 +109,7 @@
 
         function changeDropdownStatus() {
             book_status = $('#BookStatus').val();
-            if (book_status == '1' || book_status == '2') {
+            if (book_status == 'Y' || book_status == 'N') {
                 $('#Borrower').val('');
                 $('#Borrower').prop('disabled', true);
             } else {

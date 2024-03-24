@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.http import JsonResponse
 from .forms import BookSearchForm, BookDataForm
 from .models import BookData, BookLendRecord
+from datetime import datetime
 
 @login_required(login_url="Login")
 def index(request):
@@ -39,7 +40,9 @@ def book_detail(request, mode, book_id=0):
         if request.method == 'POST':
             form = BookDataForm(request.POST)
             if form.is_valid():
-                form.save()
+                book = form.save()
+                if book.status.code_id == 'B':
+                    BookLendRecord.objects.create(book=book, borrower_id=book.keeper_id, borrow_date=datetime.now())
                 return redirect('Book')
         else:
             form = BookDataForm()
@@ -50,7 +53,9 @@ def book_detail(request, mode, book_id=0):
             if request.method == 'POST':
                 form = BookDataForm(request.POST, instance=book)
                 if form.is_valid():
-                    form.save()
+                    new_book = form.save()
+                    if new_book.status.code_id == 'B' and new_book.keeper_id != book.keeper_id:
+                        BookLendRecord.objects.create(book=new_book, borrower_id=new_book.keeper_id, borrow_date=datetime.now())
                     return redirect(reverse('BookDetail', args=['view', book_id]))
     return render(request, 'books/book_detail.html', locals())
 
