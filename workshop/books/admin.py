@@ -2,12 +2,9 @@ from django.contrib import admin
 from books.models import BookCategory, BookCode, BookData, BookLendRecord
 
 class BookCategoryAdmin(admin.ModelAdmin):
-    list_display = ("id", "category_id", "category_name")
-    ordering = ("id",)
-
+    list_display = ("category_id", "category_name")
 class BookCodeAdmin(admin.ModelAdmin):
-    list_display = ("id", "code_id", "code_name")
-    ordering = ("id",)
+    list_display = ("code_id", "code_name")
 
 class BookDataAdmin(admin.ModelAdmin):
     list_display = ("id", "name", "category", "author", "publisher", "publish_date", "price", "keeper_id", "status")

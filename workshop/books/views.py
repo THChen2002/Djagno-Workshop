@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.http import JsonResponse
 from .forms import BookSearchForm, BookDataForm
 from .models import BookData, BookLendRecord
 
+@login_required(login_url="Login")
 def index(request):
     books = BookData.objects.all()
     if request.method == 'POST':
@@ -30,6 +33,7 @@ def index(request):
         form = BookSearchForm()
     return render(request, 'books/index.html', locals())
 
+@login_required(login_url="Login")
 def book_detail(request, mode, book_id=0):
     if mode == 'create':
         if request.method == 'POST':
@@ -50,11 +54,16 @@ def book_detail(request, mode, book_id=0):
                     return redirect(reverse('BookDetail', args=['view', book_id]))
     return render(request, 'books/book_detail.html', locals())
 
+@login_required(login_url="Login")
 def book_lend_record(request, book_id):
     records = BookLendRecord.objects.filter(book_id=book_id).order_by('-borrow_date')
     return render(request, 'books/book_lend_record.html', locals())
 
-def delete_book(request, book_id):
+def delete_book(request):
+    book_id = request.POST.get('book_id')
     book = BookData.objects.get(id=book_id)
-    book.delete()
-    return redirect('Book')
+    if book.keeper_id:
+        return JsonResponse({'status': False, 'message': '此書外借中，無法刪除'})
+    else:
+        book.delete()
+    return JsonResponse({'status': True, 'message': '刪除成功'})

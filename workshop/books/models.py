@@ -3,7 +3,7 @@ from accounts.models import Student
 
 class BookCategory(models.Model):
     # 類別代號
-    category_id = models.CharField(max_length=10)
+    category_id = models.CharField(max_length=10, primary_key=True)
     # 類別名稱
     category_name = models.CharField(max_length=100)
 
@@ -12,7 +12,7 @@ class BookCategory(models.Model):
     
 class BookCode(models.Model):
     # 類別代號
-    code_id = models.CharField(max_length=1)
+    code_id = models.CharField(max_length=1, primary_key=True)
     # 類別名稱
     code_name = models.CharField(max_length=100)
 
@@ -35,7 +35,6 @@ class BookData(models.Model):
     # 購買價格
     price = models.IntegerField(null=True)
     # 書籍保管人
-    # keeper = models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
     keeper_id = models.IntegerField(null=True)
     # 書籍狀態
     status = models.ForeignKey(BookCode, on_delete=models.CASCADE)

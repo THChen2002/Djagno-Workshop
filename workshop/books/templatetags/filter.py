@@ -1,5 +1,4 @@
 from django import template
-from django.utils import timezone
 from accounts.models import Student
 
 register = template.Library()

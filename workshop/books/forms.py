@@ -10,7 +10,7 @@ class BookSearchForm(forms.Form):
         required=False,
         widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'BookName'})
     )
-    category_choices = [('', '----------------- 書籍類別 -----------------')] + list(BookCategory.objects.values_list('id', 'category_name'))
+    category_choices = [('', '----------------- 書籍類別 -----------------')] + list(BookCategory.objects.values_list('category_id', 'category_name'))
     category = forms.ChoiceField(
         label='書籍類別',
         choices=category_choices,
@@ -24,7 +24,7 @@ class BookSearchForm(forms.Form):
         required=False,
         widget=forms.Select(attrs={'class': 'form-control', 'id': 'Borrower'})
     )
-    book_status_choices = [('', '----------------- 借閱狀態 -----------------')] + list(BookCode.objects.values_list('id', 'code_name'))
+    book_status_choices = [('', '----------------- 借閱狀態 -----------------')] + list(BookCode.objects.values_list('code_id', 'code_name'))
     book_status = forms.ChoiceField(
         label='借閱狀態',
         choices=book_status_choices,
@@ -44,7 +44,7 @@ class BookDataForm(forms.ModelForm):
 
     keeper = forms.ChoiceField(
         label='借閱人',
-        choices=[('', '------------------ 借閱人 ------------------')] + list(Student.objects.values_list('id', 'username')),
+        choices=[('', '---------')] + list(Student.objects.values_list('id', 'username')),
         required=False,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
@@ -64,7 +64,7 @@ class BookDataForm(forms.ModelForm):
         }
         labels = {
             'name': '書名',
-            'category': '圖書類別',
+            'category': '書籍類別',
             'author': '作者',
             'publisher': '出版社',
             'publish_date': '出版日期',

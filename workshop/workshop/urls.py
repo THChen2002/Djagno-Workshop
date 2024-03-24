@@ -21,8 +21,6 @@ import books.views as books
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # 首頁
-    path('', accounts.index, name='Index'),
     # 登入
     path('login/', accounts.sign_in, name='Login'),
     # 登出
@@ -30,6 +28,7 @@ urlpatterns = [
     # 註冊
     path('register/', accounts.register, name='Register'),
     # 書籍管理
+    path('', books.index, name='Book'),
     path('book/', books.index, name='Book'),
     # 書籍借閱記錄
     path('book_lend_records/<int:book_id>/', books.book_lend_record, name='BookLendRecord'),
@@ -37,5 +36,5 @@ urlpatterns = [
     path('book/<str:mode>/<int:book_id>', books.book_detail, name='BookDetail'),
     path('book/<str:mode>/', books.book_detail, name='BookDetail'),
     # 刪除書籍
-    path('delete_book/<int:book_id>', books.delete_book, name='DeleteBook'),
+    path('delete_book/', books.delete_book, name='DeleteBook'),
 ]

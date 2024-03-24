@@ -50,7 +50,7 @@
     <div style="margin-top: 15px; text-align: end;">
         <input type="hidden" value="{{ mode }}" id="mode">
         {% if mode == 'edit' %}
-        <a href="{% url 'DeleteBook' book_id %}" class="btn btn-danger" id="DeleteBtn">刪除</a>
+        <button class="btn btn-danger" id="DeleteBtn">刪除</button>
         <input type="submit" value="存檔" class="btn btn-primary" id="SaveBtn" style="margin-left: 10px;" />
         {% elif mode == 'view' %}
         <input type="button" value="修改" class="btn btn-success" id="EditBtn" />
@@ -67,7 +67,13 @@
         $('select[name="keeper"]').val(keeper_id);
 
         $('select[name="keeper"]').change(function() {
-            $('input[name="keeper_id"]').val($(this).val());
+            keeper_id = $(this).val();
+            $('input[name="keeper_id"]').val(keeper_id);
+            if (keeper_id == '') {
+                $('select[name="status"]').val('');
+            } else {
+                $('select[name="status"]').val('3');
+            }
         });
 
         if (mode == 'view') {
@@ -87,7 +93,24 @@
         //刪除按鈕確認視窗
         $('#DeleteBtn').click(function () {
             book_name = $('input[name="name"]').val();
-            return confirm('確定要刪除書籍：【' + book_name + '】？');
+            var confirmed = confirm('確定要刪除書籍：【' + book_name + '】？');
+            if (confirmed) {
+                var data = {
+                    book_id: "{{ book_id }}",
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                };
+                $.ajax({
+                    url: "{% url 'DeleteBook' %}",
+                    type: 'POST',
+                    data: data,
+                    success: function (result) {
+                        if (result.status) {
+                            window.location.href = "{% url 'Book' %}";
+                        }
+                        alert(result.message);
+                    }
+                });
+            }
         });
 
         function readonlyMode() {
